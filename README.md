@@ -1,46 +1,38 @@
 # AI Engineer Roadmap
 
-Next.js 15 + TypeScript + Tailwind CSS 4 + shadcn/ui + SQLite (Turso / libSQL).
+Next.js 15 + TypeScript + Tailwind CSS 4 + shadcn/ui, with progress stored in Turso (SQLite).
 
-The data is the real roadmap.sh JSON from the
-[developer-roadmap](https://github.com/nilbuild/developer-roadmap) repo
-(`ai-engineer.json` and `frontend.json`), saved in `data/repo/`.
+The roadmap layout is the real roadmap.sh JSON (`ai-engineer.json`, `frontend.json`) in `data/repo/`.
+It is bundled into the app, so there is **nothing to seed**. The database only stores which topics you finished
+(table `progress`, created automatically on first use).
 
-- `/static` — reads `data/repo/ai-engineer.json` directly (phase 1, no database)
-- `/` — reads the same roadmap from the SQLite database `roadmap.db` (phase 2). Clicking a topic saves it as done.
-- `/frontend` — the frontend roadmap, also from the database
+- `/` - AI Engineer roadmap, progress saved in the database
+- `/frontend` - Frontend roadmap, progress saved in the database
+- `/static` - same layout, no database, checkmarks are not saved
 
-## Run
+## Run locally
 
 ```
 npm install
-npm run seed     # puts every JSON file in data/repo/ into roadmap.db
-npm run dev      # open http://localhost:3000
+npm run dev      # http://localhost:3000, progress goes to a local roadmap.db file
 ```
 
-To add another roadmap: copy its JSON from the repo into `data/repo/`, run `npm run seed`, open `/<file-name>`.
-(Seeding resets the saved checkmarks.)
+## Deploy to Vercel
+
+1. Create a free database at turso.tech and copy its URL (`libsql://...`) and an auth token.
+2. Push this project to GitHub and import it at vercel.com/new.
+3. In Project Settings -> Environment Variables add `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN`, then redeploy.
+
+Never commit real values: put them only in Vercel (and in `.env.local`, which is git-ignored).
+If the database is unreachable the roadmap still shows, with a warning that progress can't be saved.
+
+To add another roadmap: copy its JSON into `data/repo/` and add one line in `lib/roadmaps.ts`.
 
 ## Files
 
-- `data/repo/*.json` — roadmap data copied from the repo
-- `scripts/seed.ts` — puts the JSON into the database (tables: `nodes`, `edges`)
-- `lib/convert.ts` — turns the repo JSON into a simple typed shape
-- `lib/types.ts` — TypeScript types
-- `lib/db.ts` — database read / update (better-sqlite3)
-- `components/roadmap.tsx` — draws the boxes and the SVG lines, progress card
-- `components/ui/*` — shadcn/ui components (button, card, badge, progress, separator)
-- `app/api/toggle`, `app/api/reset` — save progress to the database
-
-## Deploy to Vercel (with Turso)
-
-Vercel's filesystem is read-only, so progress is stored in a hosted Turso database instead of `roadmap.db`.
-
-1. Create a free account at turso.tech, then create a database (dashboard, or the Turso CLI: `turso db create ai-roadmap`).
-2. Copy its URL (`libsql://...`) and create an auth token (`turso db tokens create ai-roadmap`).
-3. Locally, copy `.env.example` to `.env.local` and fill in `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN`.
-4. Run `npm run seed` once. It loads the roadmaps into Turso (re-running it resets all progress).
-5. Push the project to GitHub and import it at vercel.com/new.
-6. In Vercel, Project Settings -> Environment Variables, add the same two variables, then deploy.
-
-With no env vars set, everything still runs locally against `roadmap.db`.
+- `lib/roadmaps.ts` - loads the JSON layouts
+- `lib/db.ts` - progress storage (libSQL / Turso)
+- `lib/convert.ts`, `lib/types.ts` - JSON conversion and types
+- `components/roadmap.tsx` - draws the boxes and SVG lines, progress card
+- `components/ui/*` - shadcn/ui components
+- `app/api/toggle`, `app/api/reset` - save progress

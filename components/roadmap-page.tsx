@@ -12,9 +12,10 @@ interface RoadmapPageProps {
   edges: RoadmapEdge[];
   source: "database" | "json";
   roadmaps?: string[];
+  warning?: string;
 }
 
-export function RoadmapPage({ slug, nodes, edges, source, roadmaps = [] }: RoadmapPageProps) {
+export function RoadmapPage({ slug, nodes, edges, source, roadmaps = [], warning }: RoadmapPageProps) {
   const fromDatabase = source === "database";
   const title = slug.replace(/-/g, " ");
 
@@ -24,7 +25,7 @@ export function RoadmapPage({ slug, nodes, edges, source, roadmaps = [] }: Roadm
         <div className="flex items-start justify-between gap-3">
           <div className="flex flex-wrap items-center gap-3">
             <h1 className="text-3xl font-bold tracking-tight capitalize">{title} roadmap</h1>
-            <Badge variant={fromDatabase ? "default" : "secondary"}>{fromDatabase ? "SQLite database" : "Static JSON"}</Badge>
+            <Badge variant={fromDatabase ? "default" : "secondary"}>{fromDatabase ? "Saved progress" : "Static JSON"}</Badge>
           </div>
           <ModeToggle />
         </div>
@@ -33,6 +34,11 @@ export function RoadmapPage({ slug, nodes, edges, source, roadmaps = [] }: Roadm
             ? "Click a topic to mark it done. Your progress is saved in the database."
             : "Data comes straight from data/repo/ai-engineer.json. Checkmarks are not saved."}
         </p>
+        {warning && (
+          <p role="alert" className="rounded-md border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+            {warning}
+          </p>
+        )}
         <nav className="flex flex-wrap gap-2" aria-label="Roadmaps">
           {fromDatabase ? (
             <>
