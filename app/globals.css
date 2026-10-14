@@ -1,0 +1,146 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+
+  /* roadmap canvas tokens */
+  --rm-surface: oklch(1 0 0);
+  --rm-surface-2: oklch(0.96 0 0);
+  --rm-ink: oklch(0.145 0 0);
+  --rm-text: oklch(0.145 0 0);
+  --rm-edge: oklch(0.6 0.18 255);
+  --rm-link: oklch(0.488 0.243 264.376);
+  --rm-topic-bg: oklch(0.924 0.12 95.746);
+  --rm-topic-hover: oklch(0.879 0.169 91.605);
+  --rm-topic-border: oklch(0.145 0 0);
+  --rm-topic-fg: oklch(0.145 0 0);
+  --rm-sub-bg: oklch(0.987 0.022 95.277);
+  --rm-sub-hover: oklch(0.962 0.059 95.617);
+  --rm-sub-border: oklch(0.145 0 0);
+  --rm-sub-fg: oklch(0.145 0 0);
+  --rm-done-bg: oklch(0.905 0.093 164.15);
+  --rm-done-hover: oklch(0.845 0.143 164.978);
+  --rm-done-border: oklch(0.508 0.118 165.612);
+  --rm-done-fg: oklch(0.3 0.06 165);
+  --rm-btn-purple: #4136d6;
+  --rm-btn-blue: #1f66c9;
+  --rm-btn-grey: #d1d1d1;
+  --rm-btn-dark: #232323;
+  --rm-progress: oklch(0.62 0.17 155);
+  --rm-dot: oklch(0 0 0 / 7%);
+}
+
+.dark {
+  color-scheme: dark;
+  --background: oklch(0.16 0.014 265);
+  --foreground: oklch(0.96 0.005 265);
+  --card: oklch(0.205 0.018 265);
+  --card-foreground: oklch(0.96 0.005 265);
+  --popover: oklch(0.225 0.02 265);
+  --popover-foreground: oklch(0.96 0.005 265);
+  --primary: oklch(0.93 0.01 265);
+  --primary-foreground: oklch(0.2 0.02 265);
+  --secondary: oklch(0.27 0.02 265);
+  --secondary-foreground: oklch(0.96 0.005 265);
+  --muted: oklch(0.26 0.02 265);
+  --muted-foreground: oklch(0.72 0.02 265); /* was 0.985 = same as body text */
+  --accent: oklch(0.31 0.03 265);
+  --accent-foreground: oklch(0.96 0.005 265);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 11%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.62 0.15 265);
+
+  /* roadmap canvas tokens */
+  --rm-surface: oklch(0.245 0.022 265);
+  --rm-surface-2: oklch(0.3 0.025 265);
+  --rm-ink: oklch(0.55 0.03 265);
+  --rm-text: oklch(0.95 0.005 265);
+  --rm-edge: oklch(0.72 0.14 255);
+  --rm-link: oklch(0.78 0.12 250);
+  --rm-topic-bg: oklch(0.37 0.075 85);
+  --rm-topic-hover: oklch(0.42 0.085 85);
+  --rm-topic-border: oklch(0.78 0.13 85);
+  --rm-topic-fg: oklch(0.97 0.03 95);
+  --rm-sub-bg: oklch(0.3 0.03 85);
+  --rm-sub-hover: oklch(0.34 0.04 85);
+  --rm-sub-border: oklch(0.55 0.07 85);
+  --rm-sub-fg: oklch(0.93 0.02 95);
+  --rm-done-bg: oklch(0.38 0.085 160);
+  --rm-done-hover: oklch(0.43 0.095 160);
+  --rm-done-border: oklch(0.72 0.15 160);
+  --rm-done-fg: oklch(0.92 0.05 160);
+  --rm-btn-purple: oklch(0.52 0.2 277);
+  --rm-btn-blue: oklch(0.58 0.17 255);
+  --rm-btn-grey: oklch(0.34 0.015 265);
+  --rm-btn-dark: oklch(0.4 0.02 265);
+  --rm-progress: oklch(0.75 0.16 160);
+  --rm-dot: oklch(1 0 0 / 7%);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* dotted canvas behind the roadmap, works in both themes */
+.roadmap-canvas {
+  background-color: var(--card);
+  background-image: radial-gradient(var(--rm-dot) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* nicer scrollbars in dark mode */
+.dark .roadmap-canvas {
+  scrollbar-color: oklch(0.4 0.02 265) transparent;
+}
