@@ -18,7 +18,6 @@ export function RoadmapPage({ slug, nodes, edges, source, roadmaps = [] }: Roadm
   const fromDatabase = source === "database";
   const title = slug.replace(/-/g, " ");
 
-  
   return (
     <main className="mx-auto max-w-7xl px-4 py-8">
       <header className="space-y-3">
